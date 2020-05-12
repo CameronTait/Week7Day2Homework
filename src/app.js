@@ -4,7 +4,19 @@ document.addEventListener('DOMContentLoaded', () => {
   new Vue({
     el: '#app',
     data: {
-        currency: null
+        currencies: [],
+        selectedCurrency: null,
+        amount: 0
     }, 
-  })
+    mounted(){
+        this.getCurrencies()
+      },
+     methods: {
+        getCurrencies: function(){
+         fetch("https://api.exchangeratesapi.io/latest")
+         .then(res => res.json())
+         .then(currencies => this.currencies = currencies)
+        },
+  }
+})
 })
